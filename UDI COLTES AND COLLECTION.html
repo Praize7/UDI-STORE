@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UDI CLOTHS AND COLLECTIONS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .hero-bg {
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://placehold.co/1600x900/000000/FFFFFF?text=UDI+Collection');
+            background-size: cover;
+            background-position: center;
+        }
+        .product-card:hover .add-to-cart {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .add-to-cart {
+            transform: translateY(100%);
+            opacity: 0;
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+        }
+        .nav-link::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: #fff;
+            transition: width .3s;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .modal-overlay {
+            transition: opacity 0.3s ease;
+        }
+        .modal-content {
+            transition: transform 0.3s ease;
+        }
+        /* Simple spinner for loading state */
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 4px solid #4f46e5;
+            width: 30px;
+            height: 30px;
+            -webkit-animation: spin 1s linear infinite; /* Safari */
+            animation: spin 1s linear infinite;
+        }
+
+        /* Safari */
+        @-webkit-keyframes spin {
+            0% { -webkit-transform: rotate(0deg); }
+            100% { -webkit-transform: rotate(360deg); }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- Header -->
+    <header id="home" class="bg-gray-900 text-white fixed w-full z-30 top-0 shadow-lg">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-3xl font-bold tracking-wider">
+                UDI<span class="text-indigo-400">.</span>
+            </a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#products" class="nav-link">Products</a>
+                <a href="#delivery" class="nav-link">Delivery</a>
+                <a href="#shipping" class="nav-link">Shipping</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            <div class="flex items-center">
+                <button class="relative" id="cart-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-indigo-500 text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                </button>
+                <button class="md:hidden ml-4">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-bg h-screen flex items-center justify-center text-white">
+        <div class="text-center">
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-4 leading-tight">UDI CLOTHS & COLLECTIONS</h1>
+            <p class="text-lg md:text-xl mb-8 text-gray-300">Discover Your Style. Redefine Your World.</p>
+            <a href="#products" class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 ease-in-out transform hover:scale-105">
+                Shop Now
+            </a>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-2">Our Featured Products</h2>
+            <p class="text-center text-gray-600 mb-12">Check out our latest collection of premium products.</p>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                 <!-- Product 1: Phone -->
+                <div class="product-card bg-white rounded-lg shadow-lg overflow-hidden group" data-name="Smartphone X" data-price="999" data-image="https://placehold.co/400x400/333/fff?text=Phone+X">
+                    <div class="relative overflow-hidden">
+                        <img src="https://placehold.co/400x400/333/fff?text=Phone+X" alt="Smartphone" class="w-full h-64 object-cover transform group-hover:scale-110 transition duration-500">
+                        <div class="absolute bottom-0 w-full p-4 add-to-cart">
+                             <button class="w-full bg-indigo-500 text-white py-2 rounded-md hover:bg-indigo-600 transition add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Smartphone X</h3>
+                        <p class="text-gray-600 mb-4">Latest model with stunning features and AI camera.</p>
+                        <div class="text-2xl font-bold text-indigo-500">$999</div>
+                    </div>
+                </div>
+
+                <!-- Product 2: Shirt -->
+                <div class="product-card bg-white rounded-lg shadow-lg overflow-hidden group" data-name="Classic Oxford Shirt" data-price="75" data-image="https://placehold.co/400x400/eee/333?text=Classic+Shirt">
+                     <div class="relative overflow-hidden">
+                        <img src="https://placehold.co/400x400/eee/333?text=Classic+Shirt" alt="Classic Shirt" class="w-full h-64 object-cover transform group-hover:scale-110 transition duration-500">
+                         <div class="absolute bottom-0 w-full p-4 add-to-cart">
+                             <button class="w-full bg-indigo-500 text-white py-2 rounded-md hover:bg-indigo-600 transition add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Classic Oxford Shirt</h3>
+                        <p class="text-gray-600 mb-4">A timeless piece for any wardrobe. 100% premium cotton.</p>
+                        <div class="text-2xl font-bold text-indigo-500">$75</div>
+                    </div>
+                </div>
+
+                <!-- Product 3: Trousers -->
+                <div class="product-card bg-white rounded-lg shadow-lg overflow-hidden group" data-name="Slim-Fit Chinos" data-price="120" data-image="https://placehold.co/400x400/555/fff?text=Chino+Trousers">
+                    <div class="relative overflow-hidden">
+                        <img src="https://placehold.co/400x400/555/fff?text=Chino+Trousers" alt="Chino Trousers" class="w-full h-64 object-cover transform group-hover:scale-110 transition duration-500">
+                         <div class="absolute bottom-0 w-full p-4 add-to-cart">
+                             <button class="w-full bg-indigo-500 text-white py-2 rounded-md hover:bg-indigo-600 transition add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Slim-Fit Chinos</h3>
+                        <p class="text-gray-600 mb-4">Comfortable and stylish trousers for any occasion.</p>
+                        <div class="text-2xl font-bold text-indigo-500">$120</div>
+                    </div>
+                </div>
+
+                <!-- Product 4: Smartwatch -->
+                <div class="product-card bg-white rounded-lg shadow-lg overflow-hidden group" data-name="TechWatch Pro" data-price="249" data-image="https://placehold.co/400x400/111/eee?text=Smartwatch">
+                     <div class="relative overflow-hidden">
+                        <img src="https://placehold.co/400x400/111/eee?text=Smartwatch" alt="Smartwatch" class="w-full h-64 object-cover transform group-hover:scale-110 transition duration-500">
+                         <div class="absolute bottom-0 w-full p-4 add-to-cart">
+                             <button class="w-full bg-indigo-500 text-white py-2 rounded-md hover:bg-indigo-600 transition add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">TechWatch Pro</h3>
+                        <p class="text-gray-600 mb-4">Track your fitness and stay connected in style.</p>
+                        <div class="text-2xl font-bold text-indigo-500">$249</div>
+                    </div>
+                </div>
+                
+                <!-- Product 5: Hoodie -->
+                <div class="product-card bg-white rounded-lg shadow-lg overflow-hidden group" data-name="Urban Comfort Hoodie" data-price="89" data-image="https://placehold.co/400x400/7c3aed/fff?text=Urban+Hoodie">
+                     <div class="relative overflow-hidden">
+                        <img src="https://placehold.co/400x400/7c3aed/fff?text=Urban+Hoodie" alt="Urban Hoodie" class="w-full h-64 object-cover transform group-hover:scale-110 transition duration-500">
+                         <div class="absolute bottom-0 w-full p-4 add-to-cart">
+                             <button class="w-full bg-indigo-500 text-white py-2 rounded-md hover:bg-indigo-600 transition add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Urban Comfort Hoodie</h3>
+                        <p class="text-gray-600 mb-4">Made with fleece for ultimate comfort and warmth.</p>
+                        <div class="text-2xl font-bold text-indigo-500">$89</div>
+                    </div>
+                </div>
+
+                <!-- Product 6: Jeans -->
+                <div class="product-card bg-white rounded-lg shadow-lg overflow-hidden group" data-name="Classic Denim Jeans" data-price="150" data-image="https://placehold.co/400x400/3b82f6/fff?text=Denim+Jeans">
+                     <div class="relative overflow-hidden">
+                        <img src="https://placehold.co/400x400/3b82f6/fff?text=Denim+Jeans" alt="Denim Jeans" class="w-full h-64 object-cover transform group-hover:scale-110 transition duration-500">
+                         <div class="absolute bottom-0 w-full p-4 add-to-cart">
+                             <button class="w-full bg-indigo-500 text-white py-2 rounded-md hover:bg-indigo-600 transition add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Classic Denim Jeans</h3>
+                        <p class="text-gray-600 mb-4">A perfect fit for a stylish, everyday look.</p>
+                        <div class="text-2xl font-bold text-indigo-500">$150</div>
+                    </div>
+                </div>
+
+                <!-- Product 7: Sneakers -->
+                <div class="product-card bg-white rounded-lg shadow-lg overflow-hidden group" data-name="High-Top Sneakers" data-price="180" data-image="https://placehold.co/400x400/ef4444/fff?text=Sneakers">
+                     <div class="relative overflow-hidden">
+                        <img src="https://placehold.co/400x400/ef4444/fff?text=Sneakers" alt="Sneakers" class="w-full h-64 object-cover transform group-hover:scale-110 transition duration-500">
+                         <div class="absolute bottom-0 w-full p-4 add-to-cart">
+                             <button class="w-full bg-indigo-500 text-white py-2 rounded-md hover:bg-indigo-600 transition add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">High-Top Sneakers</h3>
+                        <p class="text-gray-600 mb-4">Step up your shoe game with these retro kicks.</p>
+                        <div class="text-2xl font-bold text-indigo-500">$180</div>
+                    </div>
+                </div>
+
+                <!-- Product 8: Backpack -->
+                <div class="product-card bg-white rounded-lg shadow-lg overflow-hidden group" data-name="Leather Backpack" data-price="220" data-image="https://placehold.co/400x400/4f46e5/fff?text=Backpack">
+                     <div class="relative overflow-hidden">
+                        <img src="https://placehold.co/400x400/4f46e5/fff?text=Backpack" alt="Backpack" class="w-full h-64 object-cover transform group-hover:scale-110 transition duration-500">
+                         <div class="absolute bottom-0 w-full p-4 add-to-cart">
+                             <button class="w-full bg-indigo-500 text-white py-2 rounded-md hover:bg-indigo-600 transition add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Leather Backpack</h3>
+                        <p class="text-gray-600 mb-4">Stylish and durable, perfect for work or travel.</p>
+                        <div class="text-2xl font-bold text-indigo-500">$220</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Delivery Section -->
+    <section id="delivery" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-2">Fast & Reliable Delivery</h2>
+            <p class="text-center text-gray-600 mb-12">Get your order delivered to your doorstep in 4 simple steps.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+                <!-- Step 1 -->
+                <div class="p-6">
+                    <div class="flex justify-center mb-4">
+                        <div class="bg-indigo-100 rounded-full p-4">
+                            <svg class="w-10 h-10 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">1. Place Your Order</h3>
+                    <p class="text-gray-600">Browse our collections and add your favorite items to the cart.</p>
+                </div>
+                <!-- Step 2 -->
+                <div class="p-6">
+                    <div class="flex justify-center mb-4">
+                        <div class="bg-indigo-100 rounded-full p-4">
+                            <svg class="w-10 h-10 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">2. Confirm Details</h3>
+                    <p class="text-gray-600">Provide your delivery address and choose a payment method.</p>
+                </div>
+                <!-- Step 3 -->
+                <div class="p-6">
+                    <div class="flex justify-center mb-4">
+                        <div class="bg-indigo-100 rounded-full p-4">
+                           <svg class="w-10 h-10 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10l2 2h8a1 1 0 001-1zM3 11h10"></path></svg>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">3. We Ship Your Order</h3>
+                    <p class="text-gray-600">Our team will pack and ship your order within 24 hours.</p>
+                </div>
+                <!-- Step 4 -->
+                 <div class="p-6">
+                    <div class="flex justify-center mb-4">
+                        <div class="bg-indigo-100 rounded-full p-4">
+                            <svg class="w-10 h-10 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">4. Receive at Doorstep</h3>
+                    <p class="text-gray-600">Your package will be delivered to you quickly and safely.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shipping Locations Section -->
+    <section id="shipping" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-2">We Ship Nationwide</h2>
+            <p class="text-center text-gray-600 mb-12">Proudly delivering to all major cities across the country.</p>
+            <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg flex flex-wrap justify-center items-center gap-8">
+                <span class="bg-indigo-100 text-indigo-800 text-lg font-semibold px-4 py-2 rounded-full">Lagos</span>
+                <span class="bg-gray-200 text-gray-800 text-lg font-semibold px-4 py-2 rounded-full">Abuja</span>
+                <span class="bg-indigo-100 text-indigo-800 text-lg font-semibold px-4 py-2 rounded-full">Port Harcourt</span>
+                <span class="bg-gray-200 text-gray-800 text-lg font-semibold px-4 py-2 rounded-full">Kano</span>
+                <span class="bg-indigo-100 text-indigo-800 text-lg font-semibold px-4 py-2 rounded-full">Ibadan</span>
+                <span class="bg-gray-200 text-gray-800 text-lg font-semibold px-4 py-2 rounded-full">Enugu</span>
+                <span class="bg-indigo-100 text-indigo-800 text-lg font-semibold px-4 py-2 rounded-full">Calabar</span>
+                <span class="bg-gray-200 text-gray-800 text-lg font-semibold px-4 py-2 rounded-full">And more...</span>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about" class="bg-white py-20">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-8 md:mb-0">
+                <img src="https://placehold.co/600x400/ddd/333?text=Our+Story" alt="About UDI" class="rounded-lg shadow-xl">
+            </div>
+            <div class="md:w-1/2 md:pl-12">
+                <h2 class="text-4xl font-bold mb-4">Our Story</h2>
+                <p class="text-gray-600 mb-4 leading-relaxed">
+                    Founded in 2023, UDI CLOTHS AND COLLECTIONS was born from a passion for blending timeless style with modern trends. We believe that what you wear is a form of self-expression, and our mission is to provide you with high-quality, stylish, and comfortable apparel that makes you feel confident and unique.
+                </p>
+                <p class="text-gray-600 leading-relaxed">
+                    From carefully selected fabrics to meticulous craftsmanship, every piece in our collection is designed with you in mind. We are more than just a brand; we are a community of fashion enthusiasts dedicated to celebrating individuality.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="bg-gray-100 py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12">Get In Touch</h2>
+            <div class="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+                <form>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <input type="text" placeholder="Your Name" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <input type="email" placeholder="Your Email" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                    <textarea placeholder="Your Message" rows="5" class="w-full p-3 border border-gray-300 rounded-lg mb-6 focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+                    <div class="text-center">
+                        <button type="submit" class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-3 px-8 rounded-full transition duration-300">
+                            Send Message
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2025 UDI CLOTHS AND COLLECTIONS. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="modal-overlay fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-40 opacity-0 pointer-events-none">
+        <div class="modal-content bg-white rounded-lg shadow-xl w-full max-w-lg mx-4 transform -translate-y-10">
+            <div class="p-6 border-b flex justify-between items-center">
+                <h3 class="text-2xl font-bold">Your Cart</h3>
+                <button id="close-cart-btn" class="text-gray-500 hover:text-gray-800 text-3xl leading-none">&times;</button>
+            </div>
+            <div id="cart-items" class="p-6 max-h-80 overflow-y-auto">
+                <!-- Cart items will be injected here -->
+                <p class="text-center text-gray-500">Your cart is empty.</p>
+            </div>
+            <div class="p-6 bg-gray-50 rounded-b-lg">
+                <!-- AI STYLIST FEATURE -->
+                <div id="style-advice-container" class="hidden mb-4 p-4 bg-indigo-50 rounded-lg border border-indigo-200">
+                    <h4 class="font-bold text-indigo-800 mb-2">✨ AI Stylist's Advice</h4>
+                    <div id="style-advice-content" class="text-gray-700 text-sm"></div>
+                </div>
+
+                <button id="style-me-btn" class="w-full bg-white border border-indigo-500 text-indigo-500 py-2 rounded-md hover:bg-indigo-50 transition mb-4 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 3a1 1 0 00-1 1v1.333a3.333 3.333 0 00-2.822 3.632l-1.42 4.26A1 1 0 005.733 15h8.534a1 1 0 00.975-1.776l-1.42-4.26A3.333 3.333 0 0011 5.333V4a1 1 0 00-1-1zm-3.333 7.042a1.333 1.333 0 100 2.666 1.333 1.333 0 000-2.666zM10 11.333a1.333 1.333 0 112.666 0 1.333 1.333 0 01-2.666 0zM13.333 10.042a1.333 1.333 0 100 2.666 1.333 1.333 0 000-2.666z" clip-rule="evenodd" />
+                    </svg>
+                    <span>Get Outfit Advice</span>
+                </button>
+                <!-- END AI STYLIST -->
+
+                <div class="flex justify-between items-center mb-4 text-xl font-bold">
+                    <span>Subtotal</span>
+                    <span id="cart-subtotal">$0.00</span>
+                </div>
+                <button id="checkout-btn" class="w-full bg-indigo-500 text-white py-3 rounded-md hover:bg-indigo-600 transition disabled:bg-gray-400">
+                    Proceed to Checkout
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Order Confirmation Modal -->
+    <div id="order-confirmation-modal" class="modal-overlay fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 opacity-0 pointer-events-none">
+        <div class="modal-content bg-white rounded-lg shadow-xl w-full max-w-md mx-4 p-8 text-center transform -translate-y-10">
+            <div class="flex justify-center mb-4">
+                 <svg class="w-16 h-16 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </div>
+            <h2 class="text-2xl font-bold mb-2">Order Placed!</h2>
+            <p class="text-gray-600 mb-6">Thank you for your purchase. We've received your order and will begin processing it shortly.</p>
+            <button id="close-confirmation-btn" class="bg-indigo-500 text-white py-2 px-6 rounded-md hover:bg-indigo-600 transition">
+                Continue Shopping
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // State
+            let cart = [];
+
+            // Elements
+            const cartButton = document.getElementById('cart-button');
+            const cartModal = document.getElementById('cart-modal');
+            const closeCartButton = document.getElementById('close-cart-btn');
+            const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+            const cartCountEl = document.getElementById('cart-count');
+            const cartItemsEl = document.getElementById('cart-items');
+            const cartSubtotalEl = document.getElementById('cart-subtotal');
+            const checkoutBtn = document.getElementById('checkout-btn');
+            const confirmationModal = document.getElementById('order-confirmation-modal');
+            const closeConfirmationBtn = document.getElementById('close-confirmation-btn');
+            
+            // Gemini AI Feature Elements
+            const styleMeBtn = document.getElementById('style-me-btn');
+            const styleAdviceContainer = document.getElementById('style-advice-container');
+            const styleAdviceContent = document.getElementById('style-advice-content');
+
+            // --- Gemini API Call ---
+            async function callGeminiAPI(prompt, retries = 3, delay = 1000) {
+                const apiKey = ""; // API key is handled by the environment
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+                const payload = {
+                    contents: [{ parts: [{ text: prompt }] }],
+                };
+                
+                for (let i = 0; i < retries; i++) {
+                    try {
+                        const response = await fetch(apiUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+
+                        const result = await response.json();
+                        const candidate = result.candidates?.[0];
+                        if (candidate && candidate.content?.parts?.[0]?.text) {
+                            return candidate.content.parts[0].text;
+                        } else {
+                            throw new Error('Invalid response structure from API.');
+                        }
+                    } catch (error) {
+                        console.error(`API call attempt ${i + 1} failed:`, error);
+                        if (i === retries - 1) { // If it's the last retry
+                            return "Sorry, our AI Stylist is unavailable right now. Please try again later.";
+                        }
+                        await new Promise(res => setTimeout(res, delay * Math.pow(2, i))); // Exponential backoff
+                    }
+                }
+            }
+
+
+            // --- Modal Logic ---
+            const toggleModal = (modal, show) => {
+                const content = modal.querySelector('.modal-content');
+                if (show) {
+                    modal.classList.remove('pointer-events-none', 'opacity-0');
+                    content.classList.remove('-translate-y-10');
+                } else {
+                    modal.classList.add('pointer-events-none', 'opacity-0');
+                    content.classList.add('-translate-y-10');
+                }
+            };
+            
+            cartButton.addEventListener('click', () => toggleModal(cartModal, true));
+            closeCartButton.addEventListener('click', () => toggleModal(cartModal, false));
+            
+            if (closeConfirmationBtn) {
+                closeConfirmationBtn.addEventListener('click', () => toggleModal(confirmationModal, false));
+            }
+            
+            // --- Cart Logic ---
+            const addToCart = (product) => {
+                const existingProduct = cart.find(item => item.name === product.name);
+                if (existingProduct) {
+                    existingProduct.quantity++;
+                } else {
+                    cart.push({ ...product, quantity: 1 });
+                }
+                renderCart();
+            };
+
+            const updateQuantity = (name, newQuantity) => {
+                const product = cart.find(item => item.name === name);
+                if (product) {
+                    if (newQuantity <= 0) {
+                        removeFromCart(name);
+                    } else {
+                        product.quantity = newQuantity;
+                    }
+                }
+                renderCart();
+            };
+
+            const removeFromCart = (name) => {
+                cart = cart.filter(item => item.name !== name);
+                renderCart();
+            };
+            
+            const renderCart = () => {
+                cartItemsEl.innerHTML = '';
+                styleAdviceContainer.classList.add('hidden'); // Hide advice on cart render
+
+                if (cart.length === 0) {
+                    cartItemsEl.innerHTML = '<p class="text-center text-gray-500">Your cart is empty.</p>';
+                    checkoutBtn.disabled = true;
+                    styleMeBtn.disabled = true;
+                } else {
+                    let subtotal = 0;
+                    cart.forEach(item => {
+                        const itemTotal = item.price * item.quantity;
+                        subtotal += itemTotal;
+                        const cartItemHTML = `
+                            <div class="flex items-center justify-between py-4 border-b last:border-b-0" data-name="${item.name}">
+                                <div class="flex items-center gap-4">
+                                    <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-md">
+                                    <div>
+                                        <h4 class="font-semibold">${item.name}</h4>
+                                        <p class="text-gray-600">$${item.price.toFixed(2)}</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="flex items-center border rounded-md">
+                                        <button class="px-2 py-1 quantity-change" data-change="-1">-</button>
+                                        <span class="px-3">${item.quantity}</span>
+                                        <button class="px-2 py-1 quantity-change" data-change="1">+</button>
+                                    </div>
+                                    <span class="font-semibold w-20 text-right">$${itemTotal.toFixed(2)}</span>
+                                    <button class="text-red-500 hover:text-red-700 remove-item text-xl">&times;</button>
+                                </div>
+                            </div>
+                        `;
+                        cartItemsEl.insertAdjacentHTML('beforeend', cartItemHTML);
+                    });
+                    cartSubtotalEl.textContent = `$${subtotal.toFixed(2)}`;
+                    checkoutBtn.disabled = false;
+                    styleMeBtn.disabled = false;
+                }
+
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                cartCountEl.textContent = totalItems;
+            };
+
+            // Event Listeners
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const card = e.target.closest('.product-card');
+                    const product = {
+                        name: card.dataset.name,
+                        price: parseFloat(card.dataset.price),
+                        image: card.dataset.image,
+                    };
+                    addToCart(product);
+                });
+            });
+
+            cartItemsEl.addEventListener('click', (e) => {
+                const target = e.target;
+                const parentItem = target.closest('[data-name]');
+                if (!parentItem) return;
+                
+                const name = parentItem.dataset.name;
+                const product = cart.find(item => item.name === name);
+
+                if (target.classList.contains('quantity-change')) {
+                    const change = parseInt(target.dataset.change);
+                    updateQuantity(name, product.quantity + change);
+                } else if (target.classList.contains('remove-item')) {
+                    removeFromCart(name);
+                }
+            });
+            
+            checkoutBtn.addEventListener('click', () => {
+                if(cart.length > 0) {
+                   cart = [];
+                   renderCart();
+                   toggleModal(cartModal, false);
+                   setTimeout(() => toggleModal(confirmationModal, true), 300);
+                }
+            });
+
+            styleMeBtn.addEventListener('click', async () => {
+                if (cart.length === 0) return;
+                
+                styleAdviceContainer.classList.remove('hidden');
+                styleAdviceContent.innerHTML = '<div class="flex justify-center"><div class="loader"></div></div>';
+                styleMeBtn.disabled = true;
+
+                const itemNames = cart.map(item => item.name).join(', ');
+                const userPrompt = `I am shopping at an online store called UDI Cloths and Collections. I have these items in my cart: ${itemNames}. 
+                Act as a friendly AI fashion stylist. Give me some cool and concise advice on how to style these items together. 
+                Suggest one or two other types of clothing that would complete the look. Format the response as simple HTML paragraphs.`;
+
+                const advice = await callGeminiAPI(userPrompt);
+                
+                styleAdviceContent.innerHTML = advice.replace(/\n/g, '<br>'); // Simple formatting
+                styleMeBtn.disabled = false;
+            });
+
+
+            // Initial Render
+            renderCart();
+        });
+    </script>
+</body>
+</html>
+
